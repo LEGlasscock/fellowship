@@ -1,0 +1,37 @@
+<ion-header>
+	<ion-navbar color="primary">
+    <ion-title>Request</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="logMeOut()">
+        Logout<ion-icon name="log-out"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+<form>
+    <ion-item>
+      <ion-label stacked>Subject</ion-label>
+      <ion-input type="subject" placeholder="Your prayer request title"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Message</ion-label>
+      <ion-textarea rows="4" type="message" placeholder="Your message"></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Post Anonymously</ion-label>
+      <ion-toggle checked="false"></ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-label></ion-label>
+    </ion-item>
+
+    <button ion-button block type="submit">
+      Submit
+    </button>
+
+  </form>
+</ion-content>
