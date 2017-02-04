@@ -34,14 +34,16 @@ export class AuthData {
    * @param  {string} birthDay [User's birthday]
    * @param  {string} gender [User's gender]
    */
-  signupUser(email: string, password: string, firstName: string, lastName: string, birthDay: string, gender: string): any {
+  signupUser(email: string, password: string, firstName: string, lastName: string, birthDay: string, 
+    gender: string, userType: string): any {
     return this.fireAuth.createUserWithEmailAndPassword(email, password).then((newUser) => {
       this.userProfile.child(newUser.uid).set({
           email: email,
           firstName: firstName,
           lastName: lastName,
           birthDay: birthDay,
-          gender: gender
+          gender: gender,
+          userType: userType
       });
     });
   }

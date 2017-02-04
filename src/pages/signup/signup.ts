@@ -31,7 +31,8 @@ export class SignupPage {
       firstName: ['', Validators.compose([Validators.required])],
       lastName: ['', Validators.compose([Validators.required])],
       birthDay: ['', Validators.compose([Validators.required])],
-      gender: ['', Validators.compose([Validators.required])]
+      gender: ['', Validators.compose([Validators.required])],
+      userType: 'user'
     })
 
     //for hiding tab bar
@@ -69,7 +70,7 @@ export class SignupPage {
       this.authData.signupUser(
         this.signupForm.value.email, this.signupForm.value.password, 
         this.signupForm.value.firstName, this.signupForm.value.lastName, 
-        this.signupForm.value.birthDay, this.signupForm.value.gender
+        this.signupForm.value.birthDay, this.signupForm.value.gender, this.signupForm.value.userType
       ).then(() => {
         this.nav.setRoot(PrayPage);
       }, (error) => {
