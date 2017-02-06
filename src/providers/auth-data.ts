@@ -6,7 +6,7 @@ export class AuthData {
   // Here we declare the variables we'll be using.
   public fireAuth: any;
   public userProfile: any;
-  public userUid;
+  public currentUser;
 
   constructor() {
     this.fireAuth = firebase.auth(); // We are creating an auth reference.
@@ -64,8 +64,8 @@ export class AuthData {
    * This function doesn't take any params, it just logs the current user out of the app.
    */
   logoutUser(): any {
-    this.userUid = this.fireAuth.currentUser.uid;
-    console.log("User Logout: " + JSON.stringify(this.userUid))
+    this.currentUser = this.fireAuth.currentUser.uid;
+    console.log("User Logout: " + JSON.stringify(this.currentUser));
     return this.fireAuth.signOut();
   }
 
