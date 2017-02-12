@@ -4,15 +4,43 @@ import { NavController, ModalController, Platform, NavParams, ViewController } f
 import { AuthData } from '../../providers/auth-data';
 import { LoginPage } from '../login/login';
 
+import firebase from 'firebase';
+
 @Component({
   selector: 'page-pray',
   templateUrl: 'pray.html'
 })
 export class PrayPage {
+  prayerList: any;
+  newPrayerList: any;
 
   constructor(public modalCtrl: ModalController, public navCtrl: NavController, public authData: AuthData) {
+    // firebase.auth().onAuthStateChanged( user => {
+    //   if (!user) {
+    //     console.log("No user logged...not populating PrayPage");
+    //   } else {
+    //     this.currentUser = firebase.auth().currentUser.uid;
+    //   }
+    // });
+  }
+  
+  refreshPrayerList() {
+    this.prayerList = firebase.database().ref('prayers');
+      var arr = [];
+      this.prayerList.orderByValue().on("value", function(data) {
+        data.forEach(function(data) {
+            arr.push(data.val());
+            console.log("The message UID is: " + data.key);
+        });
+        console.log(arr);
+      });
+      this.newPrayerList = arr;
   }
 
+  ionViewWillEnter() {
+    this.refreshPrayerList();
+  }
+  
   logMeOut() {
     this.authData.logoutUser().then( () => {
       this.navCtrl.setRoot(LoginPage);
@@ -105,3 +133,19 @@ export class ModalContentPage {
   }
 }
 
+//EXAMPLE CODE FOR TROUBLESHOOTING
+
+    // //displays json object at https://powerofprayer-10103.firebaseio.com/prayers
+    // firebase.database().ref('prayers').once('value', snapshot => console.log(snapshot.val()));
+
+    // this.prayerList.orderByChild("timestamp").on("child_added", function(data) {
+    //   console.log("The message UID is: " + data.key);
+    //   console.log("The requestor is: " + data.val().requestor);
+    //   console.log("The timestamp is: " + data.val().timestamp);
+    //   console.log("The title is: " + data.val().title);
+    //   console.log("The message is: " + data.val().message);
+    // });
+
+    // this.currentUser = firebase.auth().currentUser.uid;
+    // console.log("User Logged into PrayPage: " + JSON.stringify(this.currentUser)); //displays current user's uid
+    // console.log("User Logged into PrayPage: " + this.prayerList); //displays https://powerofprayer-10103.firebaseio.com/prayers link

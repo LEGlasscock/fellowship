@@ -11,8 +11,12 @@
 
 <ion-content>
 
-  <ion-list>
-    <a ion-item (click)="openModal({prayerNum: 0})">
+  <ion-list >
+    <a ion-item *ngFor="let item of newPrayerList" (click)="openModal({prayerNum: 0})">
+      <h2>{{item.title}}</h2>
+      <p>{{item.message}}</p>
+    </a>
+    <!--<a ion-item (click)="openModal({prayerNum: 0})">
       <h2>Need prayers for my nephew</h2>
       <p>My nephew was recently diagnosed with...</p>
     </a>
@@ -55,7 +59,7 @@
     <a ion-item (click)="openModal({prayerNum: 2})" >
       <h2>Moving to Idaho</h2>
       <p>We're moving soon and would like someone to...</p>
-    </a>
+    </a>-->
   </ion-list>
 
 </ion-content>
