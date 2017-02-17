@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { NavController, ModalController, Platform, NavParams, ViewController } from 'ionic-angular';
 import { AuthData } from '../../providers/auth-data';
 import { LoginPage } from '../login/login';
+import { TabsPage } from '../tabs/tabs';
 
 import firebase from 'firebase';
 
@@ -13,31 +14,26 @@ import firebase from 'firebase';
 export class PrayPage {
   prayerList: any;
   newPrayerList: any;
+  currentUserId: any;
 
   constructor(public modalCtrl: ModalController, public navCtrl: NavController, public authData: AuthData) {
-    // firebase.auth().onAuthStateChanged( user => {
-    //   if (!user) {
-    //     console.log("No user logged...not populating PrayPage");
-    //   } else {
-    //     this.currentUser = firebase.auth().currentUser.uid;
-    //   }
-    // });
   }
   
   refreshPrayerList() {
+    this.prayerList = "";
     this.prayerList = firebase.database().ref('prayers');
-      var arr = [];
-      this.prayerList.orderByValue().on("value", function(data) {
-        data.forEach(function(data) {
-            arr.push(data.val());
-            console.log("The message UID is: " + data.key);
-        });
-        console.log(arr);
+    var arr = [];
+    this.prayerList.orderByValue().on("value", function(data) {
+      data.forEach(function(data) {
+          arr.push(data.val());
+          console.log("The message UID is: " + data.key);
       });
-      this.newPrayerList = arr;
+      console.log(arr);
+    });
+    this.newPrayerList = arr;
   }
 
-  ionViewWillEnter() {
+  ionViewWillLoad() {
     this.refreshPrayerList();
   }
   

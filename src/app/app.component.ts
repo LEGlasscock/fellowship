@@ -29,13 +29,15 @@ export class MyApp {
     const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
       this.zone.run( () => {
         if (!user) {
+          console.log("User is not logged in.")
           this.rootPage = LoginPage; 
           unsubscribe();
         } else { 
-          this.rootPage = TabsPage; 
+          console.log("User is logged in.")
+          this.rootPage = TabsPage;
           unsubscribe();
         }
-      });     
+      });   
     });
 
     firebase.auth().onAuthStateChanged( user => {
