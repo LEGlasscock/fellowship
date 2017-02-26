@@ -10,26 +10,26 @@
 </ion-header>
 
 <ion-content padding>
-<form>
+<form [formGroup]="prayerRequest" (ngSubmit)="submitRequest()">
     <ion-item>
-      <ion-label stacked>Subject</ion-label>
-      <ion-input type="subject" placeholder="Your prayer request title"></ion-input>
+      <ion-label stacked>Title</ion-label>
+      <ion-input formControlName="title" type="text" placeholder="Your prayer request title"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label stacked>Message</ion-label>
-      <ion-textarea rows="4" type="message" placeholder="Your message"></ion-textarea>
+      <ion-textarea formControlName="message" rows="5" type="text" placeholder="Your message"></ion-textarea>
     </ion-item>
 
     <ion-item>
       <ion-label>Post Anonymously</ion-label>
-      <ion-toggle checked="false"></ion-toggle>
+      <ion-toggle formControlName="anonymous" checked="false"></ion-toggle>
     </ion-item>
     <ion-item>
       <ion-label></ion-label>
     </ion-item>
 
-    <button ion-button block type="submit">
+    <button ion-button block type="submit" [disabled]="!prayerRequest.valid">
       Submit
     </button>
 

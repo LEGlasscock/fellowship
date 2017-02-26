@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { NavController, ModalController, Platform, NavParams, ViewController } from 'ionic-angular';
 import { AuthData } from '../../providers/auth-data';
 import { LoginPage } from '../login/login';
-import { TabsPage } from '../tabs/tabs';
 
 import firebase from 'firebase';
 
@@ -18,13 +17,13 @@ export class PrayPage {
 
   constructor(public modalCtrl: ModalController, public navCtrl: NavController, public authData: AuthData) {
   }
-  
+
   refreshPrayerList() {
-    this.prayerList = "";
     this.prayerList = firebase.database().ref('prayers');
-    var arr = [];
-    this.prayerList.orderByValue().on("value", function(data) {
-      data.forEach(function(data) {
+    console.log(this.prayerList);
+    let arr = [];
+    this.prayerList.orderByValue().once("value", function(prayer) {
+      prayer.forEach(function(data) {
           arr.push(data.val());
           console.log("The message UID is: " + data.key);
       });
@@ -98,7 +97,7 @@ export class ModalContentPage {
     public params: NavParams,
     public viewCtrl: ViewController
   ) {
-    var prayers = [
+    let prayers = [
       {
         name: 'Chad Jarvis',
         image: 'assets/img/man1.jpg',

@@ -13,6 +13,9 @@
 
   <ion-list >
     <a ion-item *ngFor="let item of newPrayerList" (click)="openModal({prayerNum: 0})">
+      <ion-avatar item-left>
+        <img src="{{item.image}}">
+      </ion-avatar>
       <h2>{{item.title}}</h2>
       <p>{{item.message}}</p>
     </a>

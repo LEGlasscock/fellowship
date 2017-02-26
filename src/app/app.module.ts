@@ -29,7 +29,7 @@ import { AuthData } from '../providers/auth-data';
     ModalContentPage
   ],
   imports: [
-    IonicModule.forRoot(MyApp,{tabsPlacement: 'bottom'})
+    IonicModule.forRoot(MyApp,{tabsPlacement: 'bottom'}),
   ],
   bootstrap: [IonicApp],
   entryComponents: [
