@@ -5,14 +5,17 @@ import { NavController } from 'ionic-angular';
 import { AuthData } from '../../providers/auth-data';
 import { LoginPage } from '../login/login';
 
+import firebase from 'firebase';
+
 @Component({
   selector: 'page-contact',
   templateUrl: 'contact.html'
 })
+
 export class ContactPage {
   public base64Image: string;
+  public currentUserId = firebase.auth().currentUser.uid;
   constructor(public navCtrl: NavController, public authData: AuthData) {
-
   }
 
   accessGallery(){
@@ -21,6 +24,10 @@ export class ContactPage {
      destinationType: Camera.DestinationType.DATA_URL
     }).then((imageData) => {
       this.base64Image = 'data:image/jpeg;base64,'+imageData;
+      //add image to firebase
+      firebase.database().ref('userProfile').child(this.currentUserId).update({
+        image: this.base64Image
+      });
      }, (err) => {
       console.log(err);
     });
@@ -34,6 +41,10 @@ export class ContactPage {
     }).then((imageData) => {
       // imageData is a base64 encoded string
         this.base64Image = "data:image/jpeg;base64," + imageData;
+        //add image to firebase
+        firebase.database().ref('userProfile').child(this.currentUserId).set({
+          image: this.base64Image
+        });
     }, (err) => {
         console.log(err);
     });
