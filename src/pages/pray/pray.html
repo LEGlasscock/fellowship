@@ -12,9 +12,15 @@
 <ion-content>
 
   <ion-list >
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing..."></ion-refresher-content>
+    </ion-refresher>
     <a ion-item *ngFor="let item of newPrayerList" (click)="openModal({prayerNum: 0})">
       <ion-avatar item-left>
-        <img src="{{item.image}}">
+        <img src="{{item.userImage}}" >
       </ion-avatar>
       <h2>{{item.title}}</h2>
       <p>{{item.message}}</p>

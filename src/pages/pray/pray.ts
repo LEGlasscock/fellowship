@@ -11,9 +11,9 @@ import firebase from 'firebase';
   templateUrl: 'pray.html'
 })
 export class PrayPage {
-  prayerList: any;
-  newPrayerList: any;
-  currentUserId: any;
+  public prayerList: any;
+  public newPrayerList: any;
+  public currentUserId: any;
 
   constructor(public modalCtrl: ModalController, public navCtrl: NavController, public authData: AuthData) {
   }
@@ -22,14 +22,24 @@ export class PrayPage {
     this.prayerList = firebase.database().ref('prayers');
     console.log(this.prayerList);
     let arr = [];
-    this.prayerList.orderByValue().once("value", function(prayer) {
+    this.prayerList.orderByChild("timestamp").limitToLast(10).once("value", function(prayer) {
       prayer.forEach(function(data) {
           arr.push(data.val());
           console.log("The message UID is: " + data.key);
       });
       console.log(arr);
+      arr = arr.reverse(); //reverse array to show timestamp in descending order
     });
     this.newPrayerList = arr;
+  }
+
+  doRefresh(refresher) {
+    console.log('Begin async operation', refresher);
+    this.refreshPrayerList();
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      refresher.complete();
+    }, 2000);
   }
 
   ionViewWillLoad() {
