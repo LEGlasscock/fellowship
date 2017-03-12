@@ -1,11 +1,9 @@
 import { NgModule } from '@angular/core';
 import { IonicApp, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
-
 import { RequestPage } from '../pages/request/request';
 import { ContactPage } from '../pages/contact/contact';
-import { PrayPage } from '../pages/pray/pray';
-import { ModalContentPage } from '../pages/pray/pray';
+import { PrayPage, ModalContentPage } from '../pages/pray/pray';
 import { TabsPage } from '../pages/tabs/tabs';
 
 //Import Login Pages

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { NavController, ModalController, Platform, NavParams, ViewController } from 'ionic-angular';
 import { AuthData } from '../../providers/auth-data';
@@ -39,7 +39,7 @@ export class PrayPage {
     setTimeout(() => {
       console.log('Async operation has ended');
       refresher.complete();
-    }, 2000);
+    }, 1000);
   }
 
   ionViewWillLoad() {
@@ -52,8 +52,8 @@ export class PrayPage {
     });
   }
 
-  openModal(prayerNum) {
-      let modal = this.modalCtrl.create(ModalContentPage, prayerNum);
+  openModal(item) {
+      let modal = this.modalCtrl.create(ModalContentPage, item);
       modal.present();
   }
 }
@@ -77,9 +77,9 @@ export class PrayPage {
 <ion-content>
     <ion-item>
     <ion-avatar item-left>
-        <img src="{{prayer.image}}">
+        <img src="{{prayer.userImage}}">
     </ion-avatar>
-    <h2>{{prayer.name}}</h2>
+    <h2>{{prayer.userName}}</h2>
     </ion-item>
 
     <ion-card>
@@ -87,7 +87,7 @@ export class PrayPage {
         {{prayer.title}}
       </ion-card-header>
       <ion-card-content>
-        {{prayer.content}}
+        {{prayer.message}}
       </ion-card-content>
     </ion-card>
     <ion-item>
@@ -102,35 +102,32 @@ export class PrayPage {
 export class ModalContentPage {
   prayer;
 
-  constructor(
-    public platform: Platform,
-    public params: NavParams,
-    public viewCtrl: ViewController
-  ) {
-    let prayers = [
-      {
-        name: 'Chad Jarvis',
-        image: 'assets/img/man1.jpg',
-        title: 'Need prayers for my nephew', 
-        content: 'My nephew was recently diagnosed with cancer yesterday. They told him that he only has 12 months.  We are asking for any and all prayers. ',
-        count: '12'
-      },
-      {
-        name: 'Sarah Robles',
-        image: 'assets/img/woman1.jpg',
-        title: 'Getting married', 
-        content: 'I would like to ask for prayers of blessing for our future.  My best friend of many years has just proposed, and I ask that God bless our union.',
-        count: '7'
-      },
-      {
-        name: 'Ben Lancaster',
-        image: 'assets/img/man2.jpg',
-        title: 'Please pray for my Family', 
-        content: 'My parents lost their house in a recent house fire.  Many of their belongings were destroyed, and they are devastated.  Please pray for comfort.',
-        count: '24'
-      }
-    ];
-    this.prayer = prayers[this.params.get('prayerNum')];
+  constructor( public platform: Platform, public params: NavParams, public viewCtrl: ViewController ) {
+
+    // let prayers = [
+    //   {
+    //     name: 'Chad Jarvis',
+    //     image: 'assets/img/man1.jpg',
+    //     title: 'Need prayers for my nephew', 
+    //     content: 'My nephew was recently diagnosed with cancer yesterday. They told him that he only has 12 months.  We are asking for any and all prayers. ',
+    //     count: '12'
+    //   },
+    //   {
+    //     name: 'Sarah Robles',
+    //     image: 'assets/img/woman1.jpg',
+    //     title: 'Getting married', 
+    //     content: 'I would like to ask for prayers of blessing for our future.  My best friend of many years has just proposed, and I ask that God bless our union.',
+    //     count: '7'
+    //   },
+    //   {
+    //     name: 'Ben Lancaster',
+    //     image: 'assets/img/man2.jpg',
+    //     title: 'Please pray for my Family', 
+    //     content: 'My parents lost their house in a recent house fire.  Many of their belongings were destroyed, and they are devastated.  Please pray for comfort.',
+    //     count: '24'
+    //   }
+    // ];
+    this.prayer = this.params.get('item');
   }
 
   dismiss() {

@@ -17,8 +17,8 @@ export class RequestPage {
   private newPrayerRequest: any;
 
   constructor( private formBuilder: FormBuilder, public navCtrl: NavController, public authData: AuthData, 
-    public app: App, public toastCtrl: ToastController) {
-
+               public app: App, public toastCtrl: ToastController)
+    {
     this.prayerRequest = this.formBuilder.group({
       title: ['', Validators.required],
       message: ['', Validators.required],
