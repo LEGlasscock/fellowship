@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
-import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
-import { NavController, Tabs, App, ToastController } from 'ionic-angular';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { NavController, App, ToastController } from 'ionic-angular';
 import { AuthData } from '../../providers/auth-data';
 import { LoginPage } from '../login/login';
-import { TabsPage } from '../tabs/tabs';
-import { PrayPage } from '../pray/pray';
 
 import firebase from 'firebase';
 
@@ -14,11 +12,10 @@ import firebase from 'firebase';
 })
 export class RequestPage {
   private prayerRequest: FormGroup;
-  private newPrayerRequest: any;
 
   constructor( private formBuilder: FormBuilder, public navCtrl: NavController, public authData: AuthData, 
-               public app: App, public toastCtrl: ToastController)
-    {
+    public app: App, public toastCtrl: ToastController) {
+      
     this.prayerRequest = this.formBuilder.group({
       title: ['', Validators.required],
       message: ['', Validators.required],

@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
 
 import { PrayPage } from '../pray/pray';
 import { RequestPage } from '../request/request';
 import { ContactPage } from '../contact/contact';
-
-import { AuthData } from '../../providers/auth-data';
-import { LoginPage } from '../login/login';
 
 @Component({
   templateUrl: 'tabs.html'

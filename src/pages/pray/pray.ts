@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { NavController, ModalController, Platform, NavParams, ViewController } from 'ionic-angular';
 import { AuthData } from '../../providers/auth-data';

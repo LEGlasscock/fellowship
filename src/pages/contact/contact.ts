@@ -14,11 +14,12 @@ import firebase from 'firebase';
 
 export class ContactPage {
   public base64Image: string;
-  public currentUserId = firebase.auth().currentUser.uid;
+  public currentUserId: any;
   constructor(public navCtrl: NavController, public authData: AuthData) {
   }
 
   accessGallery(){
+   this.currentUserId = firebase.auth().currentUser.uid;
    Camera.getPicture({
      sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
      destinationType: Camera.DestinationType.DATA_URL
@@ -34,6 +35,7 @@ export class ContactPage {
   }
 
   takePicture(){
+    this.currentUserId = firebase.auth().currentUser.uid;
     Camera.getPicture({
         destinationType: Camera.DestinationType.DATA_URL,
         targetWidth: 1000,
