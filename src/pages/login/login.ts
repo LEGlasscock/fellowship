@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthData } from '../../providers/auth-data';
 import { SignupPage } from '../signup/signup';
-import { TabsPage } from '../tabs/tabs';
+import { HomePage } from '../home/home';
 import { ResetPasswordPage } from '../reset-password/reset-password';
 import { EmailValidator } from '../../validators/email';
 
@@ -19,8 +19,6 @@ export class LoginPage {
   submitAttempt: boolean = false;
   loading: any;
 
-  tabBarElement: any; //for hiding tab bar
-
   constructor(public nav: NavController, public authData: AuthData, 
     public formBuilder: FormBuilder, public alertCtrl: AlertController, 
     public loadingCtrl: LoadingController) {
@@ -29,17 +27,6 @@ export class LoginPage {
       email: ['', Validators.compose([Validators.required, EmailValidator.isValid])],
       password: ['', Validators.compose([Validators.minLength(6), Validators.required])]
     });
-
-    //for hiding tab bar
-    this.tabBarElement = document.querySelector('.tabbar.show-tabbar');
-  }
-  
-  //Hide tab bar
-  ionViewWillEnter() {
-    this.tabBarElement.style.display = 'none';
-  }
-  ionViewWillLeave() {
-    this.tabBarElement.style.display = 'flex';
   }
 
   elementChanged(input){
@@ -55,7 +42,7 @@ export class LoginPage {
       console.log(this.loginForm.value);
     } else {
       this.authData.loginUser(this.loginForm.value.email, this.loginForm.value.password).then( authData => {
-        this.nav.setRoot(TabsPage);
+        this.nav.setRoot(HomePage);
       }, error => {
         this.loading.dismiss().then( () => {
           let alert = this.alertCtrl.create({

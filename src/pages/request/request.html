@@ -1,11 +1,11 @@
 <ion-header>
-	<ion-navbar color="primary">
-    <ion-title>Request</ion-title>
-    <ion-buttons end>
-      <button ion-button (click)="logMeOut()">
-        Logout<ion-icon name="log-out"></ion-icon>
-      </button>
-    </ion-buttons>
+	<ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+			Prayer Request
+    </ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -32,6 +32,9 @@
     <button ion-button block type="submit" [disabled]="!prayerRequest.valid">
       Submit
     </button>
-
   </form>
 </ion-content>
+
+<ion-footer>
+  <page-footer></page-footer>
+</ion-footer>

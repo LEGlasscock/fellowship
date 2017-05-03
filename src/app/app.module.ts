@@ -1,10 +1,17 @@
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpModule } from '@angular/http';
 import { IonicApp, IonicModule } from 'ionic-angular';
+import { Camera } from '@ionic-native/camera';
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
 import { MyApp } from './app.component';
+
+import { LoadPage } from '../pages/load/load';
+import { HomePage, ModalContentPage } from '../pages/home/home';
+import { FooterPage } from '../pages/page-footer/page-footer';
 import { RequestPage } from '../pages/request/request';
-import { ContactPage } from '../pages/contact/contact';
-import { PrayPage, ModalContentPage } from '../pages/pray/pray';
-import { TabsPage } from '../pages/tabs/tabs';
+import { ProfilePage } from '../pages/profile/profile';
 
 //Import Login Pages
 import { LoginPage } from '../pages/login/login';
@@ -17,32 +24,39 @@ import { AuthData } from '../providers/auth-data';
 @NgModule({
   declarations: [
     MyApp,
+    LoadPage,
+    HomePage,
+    ModalContentPage,
+    FooterPage,
     RequestPage,
-    ContactPage,
-    PrayPage,
-    TabsPage,
+    ProfilePage,
     LoginPage,
     SignupPage,
-    ResetPasswordPage,
-    ModalContentPage
+    ResetPasswordPage
   ],
   imports: [
-    IonicModule.forRoot(MyApp,{tabsPlacement: 'bottom'}),
+    IonicModule.forRoot(MyApp),
+    BrowserModule,
+    HttpModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+    LoadPage,
+    HomePage,
+    ModalContentPage,
+    FooterPage,
     RequestPage,
-    ContactPage,
-    PrayPage,
-    TabsPage,
+    ProfilePage,
     LoginPage,
     SignupPage,
-    ResetPasswordPage,
-    ModalContentPage
+    ResetPasswordPage
   ],
   providers: [
-    AuthData
+    AuthData,
+    StatusBar,
+    SplashScreen,
+    Camera
   ]
 })
 export class AppModule {}

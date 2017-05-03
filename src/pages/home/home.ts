@@ -1,34 +1,45 @@
 import { Component } from '@angular/core';
-
-import { NavController, ModalController, Platform, NavParams, ViewController } from 'ionic-angular';
+import { NavController, ModalController, Platform, NavParams, ViewController, LoadingController } from 'ionic-angular';
 import { AuthData } from '../../providers/auth-data';
-import { LoginPage } from '../login/login';
 
 import firebase from 'firebase';
 
 @Component({
-  selector: 'page-pray',
-  templateUrl: 'pray.html'
+  selector: 'page-home',
+  templateUrl: 'home.html'
 })
-export class PrayPage {
+export class HomePage {
+
   public prayerList: any;
   public newPrayerList: any;
   public currentUserId: any;
 
-  constructor(public modalCtrl: ModalController, public navCtrl: NavController, public authData: AuthData) {
+  constructor(public modalCtrl: ModalController, public navCtrl: NavController, public authData: AuthData, public loadingCtrl: LoadingController) {
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad HomePage');
   }
 
   refreshPrayerList() {
+    console.log('refreshPrayerList');
     this.prayerList = firebase.database().ref('prayers');
-    console.log(this.prayerList);
     let arr = [];
+    let loading = this.loadingCtrl.create({
+      content: 'Please wait...',
+      duration: 3000
+    });
+    loading.present();
     this.prayerList.orderByChild("timestamp").limitToLast(10).once("value", function(prayer) {
       prayer.forEach(function(data) {
           arr.push(data.val());
           console.log("The message UID is: " + data.key);
-      });
-      console.log(arr);
-      arr = arr.reverse(); //reverse array to show timestamp in descending order
+      })
+        console.log(arr);
+        arr = arr.reverse(); //reverse array to show timestamp in descending order
+    })
+    .then(() => {
+      loading.dismiss();
     });
     this.newPrayerList = arr;
   }
@@ -43,13 +54,8 @@ export class PrayPage {
   }
 
   ionViewWillLoad() {
+    console.log('ionViewWillLoad HomePage');
     this.refreshPrayerList();
-  }
-  
-  logMeOut() {
-    this.authData.logoutUser().then( () => {
-      this.navCtrl.setRoot(LoginPage);
-    });
   }
 
   openModal(item) {
@@ -61,7 +67,7 @@ export class PrayPage {
 @Component({
   template: `
 <ion-header>
-  <ion-toolbar color="primary">
+  <ion-toolbar>
     <ion-title>
       Prayer Request
     </ion-title>
@@ -100,33 +106,9 @@ export class PrayPage {
 `
 })
 export class ModalContentPage {
-  prayer;
+  prayer: any;
 
   constructor( public platform: Platform, public params: NavParams, public viewCtrl: ViewController ) {
-
-    // let prayers = [
-    //   {
-    //     name: 'Chad Jarvis',
-    //     image: 'assets/img/man1.jpg',
-    //     title: 'Need prayers for my nephew', 
-    //     content: 'My nephew was recently diagnosed with cancer yesterday. They told him that he only has 12 months.  We are asking for any and all prayers. ',
-    //     count: '12'
-    //   },
-    //   {
-    //     name: 'Sarah Robles',
-    //     image: 'assets/img/woman1.jpg',
-    //     title: 'Getting married', 
-    //     content: 'I would like to ask for prayers of blessing for our future.  My best friend of many years has just proposed, and I ask that God bless our union.',
-    //     count: '7'
-    //   },
-    //   {
-    //     name: 'Ben Lancaster',
-    //     image: 'assets/img/man2.jpg',
-    //     title: 'Please pray for my Family', 
-    //     content: 'My parents lost their house in a recent house fire.  Many of their belongings were destroyed, and they are devastated.  Please pray for comfort.',
-    //     count: '24'
-    //   }
-    // ];
     this.prayer = this.params.get('item');
   }
 

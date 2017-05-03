@@ -1,0 +1,35 @@
+<ion-header>
+	<ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+			Prayer List
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list >
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing..."></ion-refresher-content>
+    </ion-refresher>
+    <ion-card *ngFor="let item of newPrayerList">
+    <a ion-item (click)="openModal({item: item})">
+      <ion-avatar item-left>
+        <img src="{{item.userImage}}">
+      </ion-avatar>
+      <h2>{{item.title}}</h2>
+      <p>{{item.message}}</p>
+      <ion-icon name="bonfire" color="gray" item-right></ion-icon>
+    </a>
+    </ion-card>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <page-footer></page-footer>
+</ion-footer>

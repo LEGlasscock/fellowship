@@ -1,0 +1,50 @@
+<ion-header>
+	<ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+			Profile
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="profileForm" (submit)="editProfile()">
+    <input type="file" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="processWebImage($event)"/>
+    <ion-list>
+      <div class="profile-image-wrapper" (click)="getPicture()">
+        <div class="profile-image-placeholder" *ngIf="!this.profileForm.controls.profilePic.value">
+          <ion-icon name="add"></ion-icon>
+          <div>
+            {{ 'ADD IMAGE' }}
+          </div>
+        </div>
+        <div class="profile-image" [style.backgroundImage]="getProfileImageStyle()" *ngIf="this.profileForm.controls.profilePic.value"></div>
+      </div>
+      <ion-item>
+        <ion-icon name="contact" color="gray" item-left></ion-icon>
+        <ion-input formControlName="name" type="text" [(ngModel)]="name"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-icon name="mail" color="gray" item-left></ion-icon>
+        <ion-input formControlName="email" type="text" [(ngModel)]="email"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-icon name="bookmark" color="gray" item-left></ion-icon>
+        <ion-select formControlName="gender" [(ngModel)]="gender">
+          <ion-option value="female">Female</ion-option>
+          <ion-option value="male">Male</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-icon name="calendar" color="gray" item-left></ion-icon>
+        <ion-datetime formControlName="birthDay" type="birthDay" displayFormat="MMM DD, YYYY" [(ngModel)]="birthDay"></ion-datetime>
+      </ion-item>
+    </ion-list>
+  </form>
+</ion-content>
+
+<ion-footer>
+  <page-footer></page-footer>
+</ion-footer>

@@ -40,8 +40,7 @@ export class AuthData {
     return this.fireAuth.createUserWithEmailAndPassword(email, password).then((newUser) => {
       this.userProfile.child(newUser.uid).set({
           email: email,
-          firstName: firstName,
-          lastName: lastName,
+          name: firstName + " " + lastName,
           birthDay: birthDay,
           gender: gender,
           userType: userType

@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthData } from '../../providers/auth-data';
 import { EmailValidator } from '../../validators/email';
-import { PrayPage } from '../pray/pray';
+import { HomePage } from '../home/home';
 
 @Component({
   selector: 'page-signup',
@@ -35,16 +35,6 @@ export class SignupPage {
       userType: 'user'
     })
 
-    //for hiding tab bar
-    this.tabBarElement = document.querySelector('.tabbar.show-tabbar');
-  }
-  
-  //Hide tab bar
-  ionViewWillEnter() {
-    this.tabBarElement.style.display = 'none';
-  }
-  ionViewWillLeave() {
-    this.tabBarElement.style.display = 'flex';
   }
 
   /**
@@ -72,7 +62,7 @@ export class SignupPage {
         this.signupForm.value.firstName, this.signupForm.value.lastName, 
         this.signupForm.value.birthDay, this.signupForm.value.gender, this.signupForm.value.userType
       ).then(() => {
-        this.nav.setRoot(PrayPage);
+        this.nav.setRoot(HomePage);
       }, (error) => {
         this.loading.dismiss().then( () => {
           var errorMessage: string = error.message;

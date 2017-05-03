@@ -23,6 +23,10 @@ export class RequestPage {
     });
   }
 
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad RequestPage');
+  }
+
   submitRequest() {
     // Get user ID
     let currentUserId = firebase.auth().currentUser.uid;
@@ -66,12 +70,6 @@ export class RequestPage {
     console.log("Prayer request created " + JSON.stringify(this.prayerRequest.value));
     
     // this.app.getRootNav().getActiveChildNav().select(0); //select first tab
-  }
-
-  logMeOut() {
-    this.authData.logoutUser().then( () => {
-      this.navCtrl.setRoot(LoginPage);
-    });
   }
 
 }
