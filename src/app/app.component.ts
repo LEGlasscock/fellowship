@@ -6,6 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { LoadPage } from '../pages/load/load';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
+import { ProfilePage } from '../pages/profile/profile';
 
 import firebase from 'firebase';
 
@@ -23,7 +24,7 @@ export class MyApp {
 
     // Need to modify this to change depending on user role
     this.pages = [
-      { title: 'Test Home Page', component: HomePage },
+      { title: 'Profile', component: ProfilePage },
       { title: 'Test Admin Page', component: HomePage },
       { title: 'Test Parent Page', component: HomePage },
       { title: 'Test Staff Page', component: HomePage }
