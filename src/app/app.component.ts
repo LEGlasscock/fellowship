@@ -46,45 +46,6 @@ export class MyApp {
       }
       else { //user already logged in
         this.app.getRootNav().setRoot(HomePage);
-        // let userCategory;
-        // console.log("UserID1: " + this.currentUserId);
-        // this.currentUserId = firebase.auth().currentUser.uid;
-        // if (this.currentUserId != undefined) {
-        //   console.log("UserID3: " + this.currentUserId);
-        //   let p1 = new Promise ((resolve,reject) => {
-        //     firebase.database().ref('userProfile').child(this.currentUserId).once("value", function(data) {
-        //       console.log("group: " + data.val().group);
-        //       userCategory = data.val().group;
-        //       console.log("userCategory: " + userCategory);
-        //     });
-        //     setTimeout (function() {
-        //       resolve ("success!");
-        //     }, 1000);
-        //   });
-
-        //   p1.then((successMessage) => {
-        //     if (userCategory == "parents") {
-        //       console.log("group: parents");
-        //       this.app.getRootNav().setRoot(AdminPage);
-        //     }
-        //     else if (userCategory == "teachers") {
-        //       console.log("group: teachers");
-        //       this.app.getRootNav().setRoot(AdminPage);
-        //     }
-        //     else if (userCategory == "staff") {
-        //       console.log("group: staff");
-        //       this.app.getRootNav().setRoot(AdminPage);
-        //     }
-        //     else if (userCategory == "admins") {
-        //       console.log("group: admins");
-        //       this.nav.setRoot(AdminPage);
-        //     }
-        //     else {
-        //       console.log("got here");
-        //     }
-        //     console.log("Yay! " + successMessage);
-        //   })
-        // }
       }
     });
 
