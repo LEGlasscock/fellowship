@@ -8,7 +8,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { MyApp } from './app.component';
 
 import { LoadPage } from '../pages/load/load';
-import { HomePage, ModalContentPage } from '../pages/home/home';
+import { HomePage } from '../pages/home/home';
+//import { HomePage, ModalContentPage } from '../pages/home/home';
 import { FooterPage } from '../pages/page-footer/page-footer';
 import { RequestPage } from '../pages/request/request';
 import { ProfilePage } from '../pages/profile/profile';
@@ -26,7 +27,7 @@ import { AuthData } from '../providers/auth-data';
     MyApp,
     LoadPage,
     HomePage,
-    ModalContentPage,
+//    ModalContentPage,
     FooterPage,
     RequestPage,
     ProfilePage,
@@ -44,7 +45,7 @@ import { AuthData } from '../providers/auth-data';
     MyApp,
     LoadPage,
     HomePage,
-    ModalContentPage,
+//    ModalContentPage,
     FooterPage,
     RequestPage,
     ProfilePage,
