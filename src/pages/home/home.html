@@ -23,7 +23,7 @@
           <img src="{{item.userImage}}">
         </ion-avatar>
         <p><b>{{item.userName}}</b></p>
-        <p item-right>2h</p>
+        <p item-right>{{item.timestamp | amTimeAgo}}</p>
       </ion-item>
       <ion-item text-wrap>
         <p style="-webkit-box-orient: vertical" class="clamp">{{item.message}}</p>
@@ -34,7 +34,9 @@
                     [color]="item.prayers.hasOwnProperty(currentUserId) ? 'light-blue' :'gray'"></ion-icon>
         </button>
         <p item-left>{{item.prayerCount}} prayers</p>
-        <ion-icon name="more" color="gray" item-right></ion-icon>
+        <button ion-button icon-only clear item-right default (click)="presentActionSheet(item)">
+          <ion-icon name="more" color="gray"></ion-icon>
+        </button>
       </ion-item>
     </ion-card>
   </ion-list>
