@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController, ModalController, Platform, NavParams, ViewController, LoadingController } from 'ionic-angular';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { NavController, Platform, NavParams, ViewController, LoadingController, App, ToastController } from 'ionic-angular';
 import { AuthData } from '../../providers/auth-data';
 
 import firebase from 'firebase';
@@ -9,18 +10,25 @@ import firebase from 'firebase';
   templateUrl: 'home.html'
 })
 export class HomePage {
-
+  private prayerRequest: FormGroup;
   public prayerList: any;
   public newPrayerList: any;
   public currentUserId: any;
+  public liked: any = '';
 
-  constructor(public modalCtrl: ModalController, public navCtrl: NavController, public authData: AuthData, public loadingCtrl: LoadingController) {
+  constructor(public navCtrl: NavController, public authData: AuthData, public loadingCtrl: LoadingController,
+              public toastCtrl: ToastController, private formBuilder: FormBuilder) {
+    this.currentUserId = firebase.auth().currentUser.uid;
+    console.log("Current UserId: " + this.currentUserId);
+    this.prayerRequest = this.formBuilder.group({
+      message: ['',],
+    });
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad HomePage');
   }
-
+  
   refreshPrayerList() {
     console.log('refreshPrayerList');
     this.prayerList = firebase.database().ref('prayers');
@@ -58,67 +66,98 @@ export class HomePage {
     this.refreshPrayerList();
   }
 
-  openModal(item) {
-      let modal = this.modalCtrl.create(ModalContentPage, item);
-      modal.present();
+  submitRequest() {
+    // Get user ID
+    let userId = firebase.auth().currentUser.uid;
+    //set values
+    let prayer = this.prayerRequest.value;
+    if (prayer.message == "" || prayer.message == null) {
+      let toast = this.toastCtrl.create({
+        message: 'Add prayer message before submitting.',
+        duration: 3000,
+        position: 'middle'
+      });
+      toast.present();
+      return false;
+    }
+    else if (prayer.message.length < 20) {
+      let toast = this.toastCtrl.create({
+        message: 'Add prayer message before submitting.',
+        duration: 3000,
+        position: 'middle'
+      });
+      toast.present();
+      return false;
+    }
+    // Get user info
+    let userInfo = firebase.database().ref('userProfile').child(this.currentUserId); //url to firebase/userProfile/userId
+    
+    userInfo.once("value", function(data) {
+      let userName = data.val().name;
+      let userImage = data.val().image;
+      let prayerCount = 0;
+      console.log("User: " + userName);
+
+      // Get a new key for new prayer request
+      let newPostKey = firebase.database().ref('prayers').push().key;
+      // Set timestamp ... only sets once pushed to firebase
+      let dateCreated = firebase.database.ServerValue.TIMESTAMP;
+
+      firebase.database().ref('prayers').child(newPostKey).set({
+        message: prayer.message,
+        requestor: userId,
+        timestamp: dateCreated,
+        userName: userName,
+        userImage: userImage,
+        prayerCount: prayerCount,
+        requestUid: newPostKey,
+        prayers: {placeholder: 0}
+      });
+    });
+    console.log("Current UserId: " + this.currentUserId);
+    this.prayerRequest.reset(); //reset form
+    this.refreshPrayerList();
+    // setTimeout(() => {
+    //   console.log('New prayer created.');
+    //   //add toast popup message
+    //   let toast = this.toastCtrl.create({
+    //     message: 'Your prayer was created successfully',
+    //     duration: 3000,
+    //     position: 'top'
+    //   });
+    //   toast.present();
+    //   this.prayerRequest.reset(); //reset form
+    // }, 1000);
+    console.log("Prayer request created " + JSON.stringify(this.prayerRequest.value));
+  }
+
+  prayFor(item, i) {
+    let userId = this.currentUserId;
+    if (!item.prayers.hasOwnProperty(this.currentUserId)) { //not prayed for
+      firebase.database().ref('prayers/' + item.requestUid + '/prayers').child(this.currentUserId).set(1);
+      firebase.database().ref('prayers/' + item.requestUid + '/prayerCount').transaction((currentCount) => {
+        return currentCount + 1;
+      });
+      let newObj = {[userId]: 1};
+      this.newPrayerList[i].prayers = Object.assign(this.newPrayerList[i].prayers, newObj); 
+      this.newPrayerList[i].prayerCount++;
+      console.log("check if: " + JSON.stringify(this.newPrayerList[i].prayers));
+    }
+    else { //prayed for
+      firebase.database().ref('prayers/' + item.requestUid + '/prayers').child(this.currentUserId).set(null);
+      firebase.database().ref('prayers/' + item.requestUid + '/prayerCount').transaction((currentCount) => {
+        return currentCount - 1;
+      });
+      delete this.newPrayerList[i].prayers[userId]; //remove userId from prayers object
+      this.newPrayerList[i].prayerCount--;
+      console.log("check else: " + JSON.stringify(this.newPrayerList[i].prayers));
+    }
   }
 }
 
-@Component({
-  template: `
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Prayer Request
-    </ion-title>
-    <ion-buttons start>
-      <button ion-button (click)="dismiss()">
-        <span ion-text color="primary" showWhen="ios">Cancel</span>
-        <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
 
-<ion-content>
-    <ion-item>
-    <ion-avatar item-left>
-        <img src="{{prayer.userImage}}">
-    </ion-avatar>
-    <h2>{{prayer.userName}}</h2>
-    </ion-item>
-
-    <ion-card>
-      <ion-card-header style="font-weight: bold;">
-        {{prayer.title}}
-      </ion-card-header>
-      <ion-card-content>
-        {{prayer.message}}
-      </ion-card-content>
-    </ion-card>
-    <ion-item>
-      <img src="assets/img/prayer_hands.png" style="width: auto;margin: auto;display: block;">
-    </ion-item>
-    <ion-item>
-      <h1 style="text-align:center;font-weight:bold;">{{prayer.count}}</h1>
-    </ion-item>
-</ion-content>
-`
-})
-export class ModalContentPage {
-  prayer: any;
-
-  constructor( public platform: Platform, public params: NavParams, public viewCtrl: ViewController ) {
-    this.prayer = this.params.get('item');
-  }
-
-  dismiss() {
-    this.viewCtrl.dismiss();
-  }
-}
 
 //EXAMPLE CODE FOR TROUBLESHOOTING
-
     // //displays json object at https://powerofprayer-10103.firebaseio.com/prayers
     // firebase.database().ref('prayers').once('value', snapshot => console.log(snapshot.val()));
 

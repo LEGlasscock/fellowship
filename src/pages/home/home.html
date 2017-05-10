@@ -17,19 +17,37 @@
       refreshingSpinner="circles"
       refreshingText="Refreshing..."></ion-refresher-content>
     </ion-refresher>
-    <ion-card *ngFor="let item of newPrayerList">
-    <a ion-item (click)="openModal({item: item})">
-      <ion-avatar item-left>
-        <img src="{{item.userImage}}">
-      </ion-avatar>
-      <h2>{{item.title}}</h2>
-      <p>{{item.message}}</p>
-      <ion-icon name="bonfire" color="gray" item-right></ion-icon>
-    </a>
+    <ion-card *ngFor="let item of newPrayerList; let i = index; trackBy:trackByIndex">
+      <ion-item>
+        <ion-avatar item-left>
+          <img src="{{item.userImage}}">
+        </ion-avatar>
+        <p><b>{{item.userName}}</b></p>
+        <p item-right>2h</p>
+      </ion-item>
+      <ion-item text-wrap>
+        <p style="-webkit-box-orient: vertical" class="clamp">{{item.message}}</p>
+      </ion-item>
+      <ion-item>
+        <button ion-button icon-only clear item-left default (click)="prayFor(item, i)">
+          <ion-icon [name]="item.prayers.hasOwnProperty(currentUserId) ? 'heart' :'heart-outline'"
+                    [color]="item.prayers.hasOwnProperty(currentUserId) ? 'light-blue' :'gray'"></ion-icon>
+        </button>
+        <p item-left>{{item.prayerCount}} prayers</p>
+        <ion-icon name="more" color="gray" item-right></ion-icon>
+      </ion-item>
     </ion-card>
   </ion-list>
 </ion-content>
 
 <ion-footer>
+  <form [formGroup]="prayerRequest" (ngSubmit)="submitRequest()">
+    <ion-item style="border-top: 1px #888 solid">
+      <ion-textarea formControlName="message" type="text" placeholder="Add a prayer..."></ion-textarea>
+      <button ion-button icon-only clear item-right default type="submit">
+        <ion-icon name="send" color="primary"></ion-icon>
+      </button>
+    </ion-item>
+  </form>
   <page-footer></page-footer>
 </ion-footer>
