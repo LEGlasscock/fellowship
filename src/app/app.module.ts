@@ -6,13 +6,16 @@ import { Camera } from '@ionic-native/camera';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { MyApp } from './app.component';
+import { MomentModule } from 'angular2-moment';
 
 import { LoadPage } from '../pages/load/load';
 import { HomePage } from '../pages/home/home';
 //import { HomePage, ModalContentPage } from '../pages/home/home';
 import { FooterPage } from '../pages/page-footer/page-footer';
+import { HeaderPage } from '../pages/page-header/page-header';
 import { RequestPage } from '../pages/request/request';
 import { ProfilePage } from '../pages/profile/profile';
+import { InspirationPage } from '../pages/inspiration/inspiration';
 
 //Import Login Pages
 import { LoginPage } from '../pages/login/login';
@@ -29,8 +32,10 @@ import { AuthData } from '../providers/auth-data';
     HomePage,
 //    ModalContentPage,
     FooterPage,
+    HeaderPage,
     RequestPage,
     ProfilePage,
+    InspirationPage,
     LoginPage,
     SignupPage,
     ResetPasswordPage
@@ -38,7 +43,8 @@ import { AuthData } from '../providers/auth-data';
   imports: [
     IonicModule.forRoot(MyApp),
     BrowserModule,
-    HttpModule
+    HttpModule,
+    MomentModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -47,8 +53,10 @@ import { AuthData } from '../providers/auth-data';
     HomePage,
 //    ModalContentPage,
     FooterPage,
+    HeaderPage,
     RequestPage,
     ProfilePage,
+    InspirationPage,
     LoginPage,
     SignupPage,
     ResetPasswordPage
