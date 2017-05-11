@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { NavController, Platform, NavParams, ViewController, LoadingController, App, ToastController } from 'ionic-angular';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { NavController, LoadingController, ToastController, ActionSheetController } from 'ionic-angular';
 import { AuthData } from '../../providers/auth-data';
 
 import firebase from 'firebase';
@@ -17,7 +17,7 @@ export class HomePage {
   public liked: any = '';
 
   constructor(public navCtrl: NavController, public authData: AuthData, public loadingCtrl: LoadingController,
-              public toastCtrl: ToastController, private formBuilder: FormBuilder) {
+              public toastCtrl: ToastController, private formBuilder: FormBuilder, public actionSheetCtrl: ActionSheetController) {
     this.currentUserId = firebase.auth().currentUser.uid;
     console.log("Current UserId: " + this.currentUserId);
     this.prayerRequest = this.formBuilder.group({
@@ -82,7 +82,7 @@ export class HomePage {
     }
     else if (prayer.message.length < 20) {
       let toast = this.toastCtrl.create({
-        message: 'Add prayer message before submitting.',
+        message: 'Message must be at least 20 characters.',
         duration: 3000,
         position: 'middle'
       });
@@ -117,17 +117,6 @@ export class HomePage {
     console.log("Current UserId: " + this.currentUserId);
     this.prayerRequest.reset(); //reset form
     this.refreshPrayerList();
-    // setTimeout(() => {
-    //   console.log('New prayer created.');
-    //   //add toast popup message
-    //   let toast = this.toastCtrl.create({
-    //     message: 'Your prayer was created successfully',
-    //     duration: 3000,
-    //     position: 'top'
-    //   });
-    //   toast.present();
-    //   this.prayerRequest.reset(); //reset form
-    // }, 1000);
     console.log("Prayer request created " + JSON.stringify(this.prayerRequest.value));
   }
 
@@ -152,6 +141,36 @@ export class HomePage {
       this.newPrayerList[i].prayerCount--;
       console.log("check else: " + JSON.stringify(this.newPrayerList[i].prayers));
     }
+  }
+
+  presentActionSheet(item) {
+    let actionSheet = this.actionSheetCtrl.create({
+      title: '',
+      buttons: [
+        {
+          text: 'Report',
+          role: 'report',
+          handler: () => {
+            firebase.database().ref('prayers/' + item.requestUid + '/reported').child(this.currentUserId).set(1);
+            let toast = this.toastCtrl.create({
+              message: 'Message reported.',
+              duration: 1000,
+              position: 'middle'
+            });
+            toast.present();
+            console.log('Report clicked');
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+          console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+    actionSheet.present();
   }
 }
 
