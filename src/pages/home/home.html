@@ -1,12 +1,5 @@
 <ion-header>
-	<ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>
-			Prayer List
-    </ion-title>
-  </ion-navbar>
+	<page-header></page-header>
 </ion-header>
 
 <ion-content>
@@ -31,7 +24,7 @@
       <ion-item>
         <button ion-button icon-only clear item-left default (click)="prayFor(item, i)">
           <ion-icon [name]="item.prayers.hasOwnProperty(currentUserId) ? 'heart' :'heart-outline'"
-                    [color]="item.prayers.hasOwnProperty(currentUserId) ? 'light-blue' :'gray'"></ion-icon>
+                    [color]="item.prayers.hasOwnProperty(currentUserId) ? 'secondary' :'gray'"></ion-icon>
         </button>
         <p item-left>{{item.prayerCount}} prayers</p>
         <button ion-button icon-only clear item-right default (click)="presentActionSheet(item)">
@@ -44,10 +37,10 @@
 
 <ion-footer>
   <form [formGroup]="prayerRequest" (ngSubmit)="submitRequest()">
-    <ion-item style="border-top: 1px #888 solid">
+    <ion-item style="border-top: 2px #4ccfad solid; border-bottom: 3px #d5d4da solid">
       <ion-textarea formControlName="message" type="text" placeholder="Add a prayer..."></ion-textarea>
       <button ion-button icon-only clear item-right default type="submit">
-        <ion-icon name="send" color="primary"></ion-icon>
+        <ion-icon name="send" color="secondary"></ion-icon>
       </button>
     </ion-item>
   </form>
