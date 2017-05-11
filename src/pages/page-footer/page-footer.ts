@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { HomePage } from '../home/home';
-import { RequestPage } from '../request/request';
 import { ProfilePage } from '../profile/profile';
+import { InspirationPage } from '../inspiration/inspiration';
 
 @Component({
   selector: 'page-footer',
@@ -16,11 +16,14 @@ export class FooterPage {
     this.navCtrl.setRoot(HomePage);
   }
 
-  goToRequestPage() {
-    this.navCtrl.setRoot(RequestPage);
+  goToInspirationPage() {
+    this.navCtrl.setRoot(InspirationPage);
   }
   goToProfilePage() {
     this.navCtrl.setRoot(ProfilePage);
   }
 
+  isActive(pageName: string): boolean {
+    return this.navCtrl.getActive().name === pageName;
+  }
 }
