@@ -38,7 +38,7 @@ export class HomePage {
       duration: 3000
     });
     loading.present();
-    this.prayerList.orderByChild("timestamp").limitToLast(10).once("value", function(prayer) {
+    this.prayerList.orderByChild("timestamp").limitToLast(20).once("value", function(prayer) {
       prayer.forEach(function(data) {
           arr.push(data.val());
           console.log("The message UID is: " + data.key);
@@ -89,12 +89,21 @@ export class HomePage {
       toast.present();
       return false;
     }
+    else if (prayer.message.length > 600) {
+      let toast = this.toastCtrl.create({
+        message: 'Message must be less than 600 characters.',
+        duration: 3000,
+        position: 'middle'
+      });
+      toast.present();
+      return false;
+    }
     // Get user info
     let userInfo = firebase.database().ref('userProfile').child(this.currentUserId); //url to firebase/userProfile/userId
     
     userInfo.once("value", function(data) {
       let userName = data.val().name;
-      let userImage = data.val().image;
+      let profilePicUrl = data.val().profilePicUrl;
       let prayerCount = 0;
       console.log("User: " + userName);
 
@@ -108,7 +117,7 @@ export class HomePage {
         requestor: userId,
         timestamp: dateCreated,
         userName: userName,
-        userImage: userImage,
+        profilePicUrl: profilePicUrl,
         prayerCount: prayerCount,
         requestUid: newPostKey,
         prayers: {placeholder: 0}

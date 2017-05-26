@@ -3,7 +3,43 @@
 </ion-header>
 
 <ion-content padding>
-
+  <div text-center>
+    <h2>DAILY VERSE</h2>
+  </div>
+  <div text-center>
+    <p>{{currentDate | date:'MMM dd, yyyy'}}</p>
+  </div>
+  <ion-card style="border-left: 6px #4ccfad solid;">
+      <ion-item text-wrap>
+        <h2 style="-webkit-box-orient: vertical" class="clamp">Consider it all joy, my brethren, when you encounter various trials, knowing that the testing of your faith produces endurance. And let endurance have its perfect result, so that you may be perfect and complete, lacking in nothing.</h2>
+      </ion-item>
+      <ion-item>
+        <p item-right>James 1:2-4</p>
+      </ion-item>
+    </ion-card>
+    <ion-item>
+      <div text-center >
+        <ion-buttons>
+          <ion-row>
+            <ion-col>
+              <button ion-button round icon-only color="secondary" (click)="shareViaEmail()">
+                <ion-icon name="send" color="light"></ion-icon>
+              </button>
+            </ion-col>
+            <ion-col>
+              <button ion-button round icon-only color="secondary" (click)="shareViaFacebook()">
+                <ion-icon ios="logo-facebook" md="logo-facebook" color="light"></ion-icon>
+              </button>
+            </ion-col>
+            <ion-col>
+              <button ion-button round icon-only color="secondary" (click)="shareViaSMS()">
+                <ion-icon name="mail" color="light"></ion-icon>
+              </button>
+            </ion-col>
+          </ion-row>
+        </ion-buttons>
+      </div>
+    </ion-item>
 </ion-content>
 
 <ion-footer>

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { HomePage } from '../home/home';
-import { ProfilePage } from '../profile/profile';
+import { UserPage } from '../user/user';
 import { InspirationPage } from '../inspiration/inspiration';
 
 @Component({
@@ -19,8 +19,8 @@ export class FooterPage {
   goToInspirationPage() {
     this.navCtrl.setRoot(InspirationPage);
   }
-  goToProfilePage() {
-    this.navCtrl.setRoot(ProfilePage);
+  goToUserPage() {
+    this.navCtrl.setRoot(UserPage);
   }
 
   isActive(pageName: string): boolean {

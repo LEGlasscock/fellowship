@@ -18,16 +18,16 @@ export class MyApp {
   rootPage: any = LoadPage;
   currentUserId: any;
   userInfo: any;
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{title: string, component: any, icon: any}>;
 
   constructor(platform: Platform, public app: App, public statusBar: StatusBar, public splashScreen: SplashScreen ) {
 
     // Need to modify this to change depending on user role
     this.pages = [
-      { title: 'Profile', component: ProfilePage },
-      { title: 'Test Admin Page', component: HomePage },
-      { title: 'Test Parent Page', component: HomePage },
-      { title: 'Test Staff Page', component: HomePage }
+      { title: 'Profile', component: ProfilePage, icon: 'person' },
+      // { title: 'Test Admin Page', component: HomePage },
+      // { title: 'Test Parent Page', component: HomePage },
+      // { title: 'Test Staff Page', component: HomePage }
     ];
 
     const config = {

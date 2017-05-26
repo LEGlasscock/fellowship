@@ -1,9 +1,11 @@
-<ion-content padding class="login" style="background-color: #ede9a8;">
-  <img src="assets/img/PowerOfPrayer_logo.png" style="width: auto;margin: auto;display: block;">
+<ion-content padding class="login">
+  <div class="logo-padding">
+  <img src="assets/img/fellowship_logo.png" style="width: auto;margin: auto;display: block;">
+  </div>
 
   <form [formGroup]="loginForm" (submit)="loginUser()" novalidate>
 
-    <ion-item style="background-color: #ede9a8;">
+    <ion-item>
       <ion-label stacked>Email</ion-label>
       <ion-input #email formControlName="email" type="email" (change)="elementChanged(email)"
         placeholder="Your email address"
@@ -13,7 +15,7 @@
       <p>Please enter a valid email.</p>
     </ion-item>
 
-    <ion-item style="background-color: #ede9a8;">
+    <ion-item>
       <ion-label stacked>Password</ion-label>
       <ion-input #password formControlName="password" type="password" (change)="elementChanged(password)"
         placeholder="Your password"
@@ -23,7 +25,7 @@
       <p>Your password needs more than 6 characters.</p>
     </ion-item>
 
-    <button ion-button block type="submit">
+    <button ion-button block type="submit" color="secondary">
       Login
     </button>
 

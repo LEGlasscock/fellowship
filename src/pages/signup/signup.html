@@ -1,17 +1,17 @@
 <ion-header>
-  <ion-navbar color="primary">
+  <ion-navbar color="secondary">
     <ion-title>
-      Create an Account
+      Signup <!--Image/Logo goes here-->
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 
-<ion-content padding class="signup" style="background-color: #ede9a8;">
-  <img src="assets/img/PowerOfPrayer_logo.png" style="width: auto;margin: auto;display: block;">
+<ion-content padding class="signup">
+  <img src="assets/img/fellowship_logo.png" style="width: auto;margin: auto;display: block;">
   <form [formGroup]="signupForm" (submit)="signupUser()" novalidate>
 
-    <ion-item style="background-color: #ede9a8;">
+    <ion-item>
       <ion-label stacked>Email</ion-label>
       <ion-input #email formControlName="email" type="email" (change)="elementChanged(email)"
         placeholder="Your email address"
@@ -21,7 +21,7 @@
       <p>Please enter a valid email.</p>
     </ion-item>
 
-    <ion-item style="background-color: #ede9a8;">
+    <ion-item>
       <ion-label stacked>Password</ion-label>
       <ion-input #password formControlName="password" type="password" (change)="elementChanged(password)"
         placeholder="Your password"
@@ -31,7 +31,7 @@
       <p>Your password needs more than 6 characters.</p>
     </ion-item>
 
-    <ion-item style="background-color: #ede9a8;">
+    <ion-item>
       <ion-label stacked>First Name</ion-label>
       <ion-input #firstName formControlName="firstName" type="firstName" (change)="elementChanged(firstName)"
         placeholder="Your first name"
@@ -41,7 +41,7 @@
       <p>Required.</p>
     </ion-item>
 
-    <ion-item style="background-color: #ede9a8;">
+    <ion-item>
       <ion-label stacked>Last Name</ion-label>
       <ion-input #lastName formControlName="lastName" type="lastName" (change)="elementChanged(lastName)"
         placeholder="Your last name"
@@ -51,7 +51,7 @@
       <p>Required.</p>
     </ion-item>
 
-    <ion-item style="background-color: #ede9a8;">
+    <ion-item>
       <ion-label stacked>Birthday</ion-label>
       <ion-datetime #birthDay formControlName="birthDay" type="birthDay" (changed)="elementChanged(birthDay)"
         displayFormat="MMM DD YYYY"
@@ -61,7 +61,7 @@
       <p>Required.</p>
     </ion-item>
 
-    <ion-item style="background-color: #ede9a8;">
+    <ion-item>
       <ion-label stacked>Gender</ion-label>
       <ion-select #gender formControlName="gender" type="gender" (change)="elementChanged(gender)"
         [class.invalid]="!signupForm.controls.gender.valid && (genderChanged || submitAttempt)">
@@ -73,7 +73,7 @@
       <p>Required.</p>
     </ion-item>
 
-    <button ion-button block type="submit">
+    <button ion-button block type="submit" color="secondary">
       Create an Account
     </button>
 

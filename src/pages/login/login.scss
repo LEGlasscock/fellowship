@@ -1,14 +1,24 @@
 page-login {
   form {
-    margin-bottom: 32px;
+    margin-top: 20px !important;
     button {
-      margin-top: 20px;
+      margin-top: 20px !important;
+      margin-bottom: 20px !important;
     }
   }
 
   p {
     font-size: 0.8em;
-    color: #c7a05b;
+    color: #d2d2d2;
+  }
+  
+  .logo-padding {
+    margin-top: 40px !important;
+  }
+
+  ion-item {
+    margin-bottom: 5px !important;
+    background-color: #f9f9f9 !important;
   }
 
   ion-label {

@@ -10,6 +10,12 @@
       refreshingSpinner="circles"
       refreshingText="Refreshing..."></ion-refresher-content>
     </ion-refresher>
+    <ion-item>
+        <div text-center>
+            <button ion-button outline color="secondary">Prayer Requests: 12</button>
+            <button ion-button outline color="secondary">Prayers Received: 23</button>
+        </div>
+    </ion-item>
     <ion-card *ngFor="let item of newPrayerList; let i = index; trackBy:trackByIndex">
       <ion-item>
         <ion-avatar item-left>
@@ -29,7 +35,7 @@
         </button>
         <p item-left>{{item.prayerCount}} prayers</p>
         <button ion-button icon-only clear item-right default (click)="presentActionSheet(item)">
-          <ion-icon name="more" color="gray"></ion-icon>
+          <ion-icon name="close-circle" color="gray"></ion-icon>
         </button>
       </ion-item>
     </ion-card>
@@ -37,13 +43,5 @@
 </ion-content>
 
 <ion-footer>
-  <form [formGroup]="prayerRequest" (ngSubmit)="submitRequest()">
-    <ion-item style="border-top: 2px #4ccfad solid; border-bottom: 3px #d5d4da solid">
-      <ion-textarea formControlName="message" type="text" placeholder="Add a prayer..."></ion-textarea>
-      <button ion-button icon-only clear item-right default type="submit">
-        <ion-icon name="send" color="secondary"></ion-icon>
-      </button>
-    </ion-item>
-  </form>
   <page-footer></page-footer>
 </ion-footer>

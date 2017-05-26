@@ -7,12 +7,14 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { MyApp } from './app.component';
 import { MomentModule } from 'angular2-moment';
+import { SocialSharing } from '@ionic-native/social-sharing';
 
 import { LoadPage } from '../pages/load/load';
 import { HomePage } from '../pages/home/home';
 //import { HomePage, ModalContentPage } from '../pages/home/home';
 import { FooterPage } from '../pages/page-footer/page-footer';
 import { HeaderPage } from '../pages/page-header/page-header';
+import { UserPage } from '../pages/user/user';
 import { RequestPage } from '../pages/request/request';
 import { ProfilePage } from '../pages/profile/profile';
 import { InspirationPage } from '../pages/inspiration/inspiration';
@@ -33,6 +35,7 @@ import { AuthData } from '../providers/auth-data';
 //    ModalContentPage,
     FooterPage,
     HeaderPage,
+    UserPage,
     RequestPage,
     ProfilePage,
     InspirationPage,
@@ -52,6 +55,7 @@ import { AuthData } from '../providers/auth-data';
     LoadPage,
     HomePage,
 //    ModalContentPage,
+    UserPage,
     FooterPage,
     HeaderPage,
     RequestPage,
@@ -65,7 +69,8 @@ import { AuthData } from '../providers/auth-data';
     AuthData,
     StatusBar,
     SplashScreen,
-    Camera
+    Camera,
+    SocialSharing
   ]
 })
 export class AppModule {}
