@@ -21,12 +21,10 @@ export class MyApp {
   pages: Array<{title: string, component: any, icon: any}>;
 
   constructor(platform: Platform, public app: App, public statusBar: StatusBar, public splashScreen: SplashScreen ) {
-
     // Need to modify this to change depending on user role
     this.pages = [
       { title: 'Profile', component: ProfilePage, icon: 'person' },
       // { title: 'Test Admin Page', component: HomePage },
-      // { title: 'Test Parent Page', component: HomePage },
       // { title: 'Test Staff Page', component: HomePage }
     ];
 
@@ -38,25 +36,39 @@ export class MyApp {
       messagingSenderId: "1053347134753"
     };
     firebase.initializeApp(config);
-
-    firebase.auth().onAuthStateChanged( user => {
-      if (!user) { //user not logged in
-        this.rootPage = LoginPage;
-        console.log("There's not a logged in user!");
-      }
-      else { //user already logged in
-        this.app.getRootNav().setRoot(HomePage);
-      }
-    });
+    // firebase.auth().onAuthStateChanged( user => {
+    //     if (!user) { //user not logged in
+    //       this.nav.setRoot(LoginPage);
+    //       // this.rootPage = LoginPage;
+    //       console.log("There's not a logged in user!");
+    //     }
+    //     else { //user already logged in
+    //       this.nav.setRoot(HomePage);
+    //       // this.app.getRootNav().setRoot(HomePage);
+    //     }
+    // });
 
     platform.ready().then(() => {
+      if (!this.isLoggedin()) { //user not logged in
+        console.log('You are not logged in');
+        this.nav.setRoot(LoginPage);
+      }
+      else { //user already logged in
+        this.nav.setRoot(HomePage);
+      }
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
 
       //old ionic 2 code
-      //StatusBar.styleDefault();
-      //SplashScreen.hide();
+      statusBar.styleDefault();
+      splashScreen.hide();
     });
+  }
+
+  isLoggedin() {
+    if (window.localStorage.getItem('currentuser')) {
+      return true;
+    }
   }
 
   openPage(page) {

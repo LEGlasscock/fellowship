@@ -1,5 +1,5 @@
 {
-  "name": "ionic-hello-world",
+  "name": "fellowship",
   "author": "Ionic Framework",
   "homepage": "http://ionicframework.com/",
   "private": true,
@@ -47,5 +47,5 @@
     "ionic-plugin-keyboard"
   ],
   "cordovaPlatforms": [],
-  "description": "powerOfPrayer: An Ionic project"
+  "description": "fellowship: An Ionic project"
 }
