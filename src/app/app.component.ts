@@ -8,7 +8,7 @@ import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { ProfilePage } from '../pages/profile/profile';
 
-import firebase from 'firebase';
+import * as firebase from 'firebase';
 
 @Component({
   templateUrl: 'app.html'
@@ -36,26 +36,18 @@ export class MyApp {
       messagingSenderId: "1053347134753"
     };
     firebase.initializeApp(config);
-    // firebase.auth().onAuthStateChanged( user => {
-    //     if (!user) { //user not logged in
-    //       this.nav.setRoot(LoginPage);
-    //       // this.rootPage = LoginPage;
-    //       console.log("There's not a logged in user!");
-    //     }
-    //     else { //user already logged in
-    //       this.nav.setRoot(HomePage);
-    //       // this.app.getRootNav().setRoot(HomePage);
-    //     }
-    // });
+    firebase.auth().onAuthStateChanged( user => {
+        if (!user) { //user not logged in
+          this.nav.setRoot(LoginPage);
+          console.log("There's not a logged in user!");
+        }
+        else { //user already logged in
+          this.nav.setRoot(HomePage);
+          // this.app.getRootNav().setRoot(HomePage);
+        }
+    });
 
     platform.ready().then(() => {
-      if (!this.isLoggedin()) { //user not logged in
-        console.log('You are not logged in');
-        this.nav.setRoot(LoginPage);
-      }
-      else { //user already logged in
-        this.nav.setRoot(HomePage);
-      }
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
 
@@ -63,12 +55,6 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
     });
-  }
-
-  isLoggedin() {
-    if (window.localStorage.getItem('currentuser')) {
-      return true;
-    }
   }
 
   openPage(page) {
