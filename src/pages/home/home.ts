@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NavController, LoadingController, ToastController, ActionSheetController } from 'ionic-angular';
 import { AuthData } from '../../providers/auth-data';
+import { SplashScreen } from '@ionic-native/splash-screen';
 
 import firebase from 'firebase';
 
@@ -16,8 +17,9 @@ export class HomePage {
   public currentUserId: any;
   public liked: any = '';
 
-  constructor(public navCtrl: NavController, public authData: AuthData, public loadingCtrl: LoadingController,
-              public toastCtrl: ToastController, private formBuilder: FormBuilder, public actionSheetCtrl: ActionSheetController) {
+  constructor(public navCtrl: NavController, public authData: AuthData, public loadingCtrl: LoadingController, 
+              public toastCtrl: ToastController, private formBuilder: FormBuilder, public actionSheetCtrl: ActionSheetController,
+              public splashScreen: SplashScreen) {
     this.currentUserId = firebase.auth().currentUser.uid;
     console.log("Current UserId: " + this.currentUserId);
     this.prayerRequest = this.formBuilder.group({
@@ -26,6 +28,7 @@ export class HomePage {
   }
 
   ionViewDidLoad() {
+    this.splashScreen.hide();
     console.log('ionViewDidLoad HomePage');
   }
   
@@ -34,7 +37,7 @@ export class HomePage {
     this.prayerList = firebase.database().ref('prayers');
     let arr = [];
     let loading = this.loadingCtrl.create({
-      content: 'Please wait...',
+      content: '',
       duration: 3000
     });
     loading.present();

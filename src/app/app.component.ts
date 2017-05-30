@@ -20,7 +20,7 @@ export class MyApp {
   userInfo: any;
   pages: Array<{title: string, component: any, icon: any}>;
 
-  constructor(platform: Platform, public app: App, public statusBar: StatusBar, public splashScreen: SplashScreen ) {
+  constructor(platform: Platform, public app: App, public statusBar: StatusBar) {
     // Need to modify this to change depending on user role
     this.pages = [
       { title: 'Profile', component: ProfilePage, icon: 'person' },
@@ -43,7 +43,6 @@ export class MyApp {
         }
         else { //user already logged in
           this.nav.setRoot(HomePage);
-          // this.app.getRootNav().setRoot(HomePage);
         }
     });
 
@@ -51,10 +50,12 @@ export class MyApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
 
-      //old ionic 2 code
       statusBar.styleDefault();
-      splashScreen.hide();
     });
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad Main app.component');
   }
 
   openPage(page) {

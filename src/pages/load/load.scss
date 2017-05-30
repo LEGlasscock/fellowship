@@ -1,3 +1,11 @@
 page-load {
-
+    ion-grid {
+        height: 100%;
+        justify-content: center;
+    }
+    .center-spinner {
+        width: auto;
+        margin: auto;
+        display: block;
+    }
 }

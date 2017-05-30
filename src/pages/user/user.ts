@@ -34,7 +34,7 @@ export class UserPage {
     this.prayerList = firebase.database().ref('prayers');
     let arr = [];
     let loading = this.loadingCtrl.create({
-      content: 'Please wait...',
+      content: '',
       duration: 3000
     });
     loading.present();

@@ -6,6 +6,7 @@ import { SignupPage } from '../signup/signup';
 import { HomePage } from '../home/home';
 import { ResetPasswordPage } from '../reset-password/reset-password';
 import { EmailValidator } from '../../validators/email';
+import { SplashScreen } from '@ionic-native/splash-screen';
 
 @Component({
   selector: 'page-login',
@@ -19,14 +20,18 @@ export class LoginPage {
   submitAttempt: boolean = false;
   loading: any;
 
-  constructor(public nav: NavController, public authData: AuthData, 
-    public formBuilder: FormBuilder, public alertCtrl: AlertController, 
-    public loadingCtrl: LoadingController) {
+  constructor(public nav: NavController, public authData: AuthData, public splashScreen: SplashScreen,
+    public formBuilder: FormBuilder, public alertCtrl: AlertController, public loadingCtrl: LoadingController) {
 
     this.loginForm = formBuilder.group({
       email: ['', Validators.compose([Validators.required, EmailValidator.isValid])],
       password: ['', Validators.compose([Validators.minLength(6), Validators.required])]
     });
+  }
+
+  ionViewDidLoad() {
+    this.splashScreen.hide();
+    console.log('ionViewDidLoad LoginPage');
   }
 
   elementChanged(input){
@@ -35,7 +40,6 @@ export class LoginPage {
   }
 
   loginUser(){
-
     this.submitAttempt = true;
 
     if (!this.loginForm.valid){
@@ -57,7 +61,6 @@ export class LoginPage {
           alert.present();          
         });
       });
-
       this.loading = this.loadingCtrl.create({
         dismissOnPageChange: true,
       });
