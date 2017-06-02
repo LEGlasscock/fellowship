@@ -16,8 +16,14 @@ export class InspirationPage {
   public phone    : string; // = '9124328954';
   public image    : string; // = 'http://masteringionic.com/perch/resources/mastering-ionic-2-cover-1-w320.png';
   public uri      : string; // = 'http://masteringionic.com/products/product-detail/s/mastering-ionic-2-e-book';
+  public verseText: string;
+  public verse    : string;
   constructor(public navCtrl: NavController, public app: App, public toastCtrl: ToastController, private socialSharing: SocialSharing) {
     this.currentDate = new Date();
+    this.verse   = "James 1:2-4";
+    this.verseText = "Consider it all joy, my brethren, when you encounter various trials, knowing that the testing of your faith produces endurance. And let endurance have its perfect result, so that you may be perfect and complete, lacking in nothing.";
+    this.subject = "Daily Verse - " + this.verse + " | fellowship";
+    this.message = this.verseText + "\n -- " + this.verse + "\n [Daily Verse by fellowship]";
   }
 
   ionViewDidLoad() {
@@ -33,78 +39,38 @@ export class InspirationPage {
       })
       .catch((err) => {
         let toast = this.toastCtrl.create({
-          message: 'Your email was not shared. Please try again.',
+          message: 'Was not able to share via Email',
           duration: 1500,
           position: 'middle'
         });
         toast.present();
-        console.log('Not able to be shared via Email');
+        console.log('Was not able to share via Email');
       });
     })
     .catch((err) => {
       let toast = this.toastCtrl.create({
-        message: 'Your email settings are not enabled.',
+        message: 'Unable to share via Email',
         duration: 1500,
         position: 'middle'
       });
       toast.present();
-      console.log('Sharing via Email NOT enabled');
-    });
-   }
-
-  shareViaFacebook() {
-    this.socialSharing.canShareVia('com.apple.social.facebook', this.message, this.image, this.uri)
-    .then((data) => {
-      this.socialSharing.shareViaFacebook(this.message, this.image, this.uri)
-      .then((data) => {
-        console.log('Shared via Facebook');
-      })
-      .catch((err) => {
-        let toast = this.toastCtrl.create({
-          message: 'Your Facebook post was not shared. Please try again.',
-          duration: 1500,
-          position: 'middle'
-        });
-        toast.present();
-        console.log('Was not shared via Facebook');
-      });
-    })
-    .catch((err) => {
-      let toast = this.toastCtrl.create({
-        message: 'Your Facebook settings are not enabled.',
-        duration: 1500,
-        position: 'middle'
-      });
-      toast.present();
-      console.log('Not able to be shared via Facebook');
+      console.log('Unable to share via Email');
     });
    }
 
    shareViaSMS() {
-    this.socialSharing.canShareVia('sms', this.message, this.phone)
-    .then((data) => {
-      this.socialSharing.shareViaSMS(this.message, this.image)
+      this.socialSharing.shareViaSMS(this.message, null)
       .then((data) => {
         console.log('Shared via SMS');
       })
       .catch((err) => {
         let toast = this.toastCtrl.create({
-          message: 'Your message was not shared. Please try again.',
+          message: 'Was not able to share via SMS.',
           duration: 1500,
           position: 'middle'
         });
         toast.present();
-        console.log('Was not shared via SMS');
+        console.log('Was not able to share via SMS');
       });
-    })
-    .catch((err) => {
-      let toast = this.toastCtrl.create({
-        message: 'Text message option not available.',
-        duration: 1500,
-        position: 'middle'
-      });
-      toast.present();
-      console.log('Not able to be shared via SMS');
-    });
    }
 }

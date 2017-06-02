@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NavController, LoadingController, ToastController, ActionSheetController } from 'ionic-angular';
 import { AuthData } from '../../providers/auth-data';
+import { ProfilePage } from '../../pages/profile/profile';
+import { HomePage } from '../../pages/home/home';
 
 import firebase from 'firebase';
 
@@ -115,5 +117,13 @@ export class UserPage {
       ]
     });
     actionSheet.present();
+  }
+
+  goToProfilePage() {
+    this.navCtrl.push(ProfilePage);
+  }
+
+  goToHomePage() {
+    this.navCtrl.push(HomePage);
   }
 }

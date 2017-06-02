@@ -12,8 +12,7 @@
     </ion-refresher>
     <ion-item>
         <div text-center>
-            <button ion-button outline color="secondary">Prayer Requests: 12</button>
-            <button ion-button outline color="secondary">Prayers Received: 23</button>
+            <button ion-button color="secondary" (click)="goToProfilePage()">Update Profile</button>
         </div>
     </ion-item>
     <ion-card *ngFor="let item of newPrayerList; let i = index; trackBy:trackByIndex">
@@ -22,8 +21,10 @@
           <img src="{{item.profilePicUrl}}" *ngIf="item.profilePicUrl">
           <img src="assets/img/default_user_image.jpg" *ngIf="!item.profilePicUrl">
         </ion-avatar>
-        <p><b>{{item.userName}}</b></p>
-        <p item-right>{{item.timestamp | amTimeAgo}}</p>
+        <p><b>{{item.userName}}</b></p> 
+         <button ion-button icon-only clear item-right default (click)="presentActionSheet(item)" style="padding: 0 0 0 5px; margin: 0;">
+          <ion-icon name="close-circle" color="gray" style="padding-left: 0 0 0 5px; margin: 0;"></ion-icon>
+        </button>
       </ion-item>
       <ion-item text-wrap>
         <p style="-webkit-box-orient: vertical" class="clamp">{{item.message}}</p>
@@ -34,9 +35,20 @@
                     [color]="item.prayers.hasOwnProperty(currentUserId) ? 'secondary' :'gray'"></ion-icon>
         </button>
         <p item-left>{{item.prayerCount}} prayers</p>
-        <button ion-button icon-only clear item-right default (click)="presentActionSheet(item)">
-          <ion-icon name="close-circle" color="gray"></ion-icon>
-        </button>
+        <p item-right>{{item.timestamp | amTimeAgo}}</p>
+      </ion-item>
+    </ion-card>
+    <!-- Display below if no requests created -->
+    <ion-card *ngIf='newPrayerList.length === 0'>
+      <ion-item>
+        <div text-center>
+          <p>No requests created.</p>
+        </div>
+      </ion-item>
+      <ion-item>
+        <div text-center>
+          <button ion-button color="secondary" (click)="goToHomePage()">Create Prayer Request</button>
+        </div>
       </ion-item>
     </ion-card>
   </ion-list>

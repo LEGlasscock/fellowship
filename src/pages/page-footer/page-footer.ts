@@ -23,7 +23,7 @@ export class FooterPage {
     this.navCtrl.setRoot(UserPage);
   }
 
-  isActive(pageName: string): boolean {
+  isActive(pageName): boolean {
     return this.navCtrl.getActive().name === pageName;
   }
 }
